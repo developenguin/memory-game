@@ -3,3 +3,4 @@
 .stylelintrc
 .eslintrc.json
 .idea
+node_modules

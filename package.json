@@ -1,0 +1,14 @@
+{
+  "name": "memory-game",
+  "version": "1.0.0",
+  "description": "memory game for udacity nanodegree",
+  "main": "js/app.js",
+  "repository": "git@github.com:developenguin/memory-game.git",
+  "author": "Developenguin <matthijs@heavymetalpenguin.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^4.14.0"
+  }
+}
