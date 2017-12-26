@@ -1,16 +1,18 @@
 /* global $ */
 // ES5 is used for now to maintain compatibility across browsers
 
-var cards = [],
-    openedCards = [];
+var gameState = {
+  cards: [],
+  openedCards: []
+};
 
 function initializeNewGame() {
 
   // Make, shuffle and display the list of cards
-  cards = populateCardList();
+  gameState.cards = populateCardList();
 
-  shuffle(cards);
-  displayCardsOnScreen(cards);
+  shuffle(gameState.cards);
+  displayCardsOnScreen(gameState.cards);
   registerEventListeners();
 
 }
