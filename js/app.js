@@ -1,13 +1,17 @@
 /* global $ */
 // ES5 is used for now to maintain compatibility across browsers
-var cards = [];
+
+var cards = [],
+    openedCards = [];
 
 function initializeNewGame() {
 
   // Make, shuffle and display the list of cards
   cards = populateCardList();
+
   shuffle(cards);
   displayCardsOnScreen(cards);
+  registerEventListeners();
 
 }
 
@@ -82,6 +86,18 @@ function generateCard(card) {
 
   return $card;
 
+}
+
+function registerEventListeners() {
+
+  $('.deck').on('click', '.card', onClickCard);
+}
+
+function onClickCard(evt) {
+
+  var $clickedCard = $(evt.target);
+
+  $clickedCard.addClass('show open');
 }
 
 /*
