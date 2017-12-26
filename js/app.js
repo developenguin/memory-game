@@ -1,15 +1,17 @@
+/* global $ */
 // ES5 is used for now to maintain compatibility across browsers
 var cards = [];
 
 function initializeNewGame() {
 
-  // Make the list of cards
+  // Make, shuffle and display the list of cards
   cards = populateCardList();
   shuffle(cards);
   displayCardsOnScreen(cards);
 
 }
 
+// Add two cards of each symbol to the list of cards
 function populateCardList() {
 
   var symbols = [
@@ -25,6 +27,8 @@ function populateCardList() {
       result = [],
       i;
 
+  // Make sure we get two of each symbol, mod operator is used to make sure
+  // that we only get existing symbols.
   for (i = 0; i < symbols.length * 2; i++) {
     result.push({
       id: i,
