@@ -5,6 +5,7 @@ function initializeNewGame() {
   // Make the list of cards
   cards = populateCardList();
   shuffle(cards);
+  displayCardsOnScreen(cards);
 
 }
 
@@ -20,9 +21,10 @@ function populateCardList() {
         'bicycle',
         'bomb'
       ],
-      result = [];
+      result = [],
+      i;
 
-  for (var i = 0; i < symbols.length * 2; i++) {
+  for (i = 0; i < symbols.length * 2; i++) {
     result.push({
       id: i,
       symbol: symbols[i % symbols.length],
@@ -55,6 +57,32 @@ function shuffle(array) {
   }
 
   return array;
+}
+
+function displayCardsOnScreen(cards) {
+
+  var $deck = $('.deck'),
+      i;
+
+  for (i = 0; i < cards.length; i++) {
+    $deck.append(generateCard(cards[i]));
+  }
+
+}
+
+function generateCard(card) {
+
+  var $card = $('<li></li>').attr({
+        'class': 'card',
+        'id': card.id
+      }),
+      $icon = $('<i></i>').addClass('fa fa-' + card.symbol);
+
+  $card.append($icon);
+  console.log($card);
+
+  return $card;
+
 }
 
 /*
