@@ -80,7 +80,6 @@ function generateCard(card) {
       $icon = $('<i></i>').addClass('fa fa-' + card.symbol);
 
   $card.append($icon);
-  console.log($card);
 
   return $card;
 
