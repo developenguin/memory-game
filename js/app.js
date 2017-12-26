@@ -99,7 +99,42 @@ function onClickCard(evt) {
 
   var $clickedCard = $(evt.target);
 
-  $clickedCard.addClass('show open');
+  openCard($clickedCard);
+  gameState.openedCards.push($clickedCard);
+
+  if (gameState.openedCards.length > 1) {
+    handleMove();
+  }
+
+}
+
+function handleMove() {
+
+  increaseMoveCounter();
+
+  if (isOpenCardsMatch()) {
+
+  }
+
+}
+
+function increaseMoveCounter() {
+
+}
+
+function isOpenCardsMatch() {
+
+  var cardClass1 = gameState.openedCards[0],
+      cardClass2 = gameState.openedCards[1];
+
+}
+
+function openCard(card) {
+  card.addClass('show open');
+}
+
+function closeCard(card) {
+  card.removeClass('show open');
 }
 
 /*
