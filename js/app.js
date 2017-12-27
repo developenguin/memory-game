@@ -134,10 +134,10 @@ function isOpenCardsMatch() {
   // Get the IDs of the opened cards and find their counterparts in the state
   var cardId1 = gameState.openedCards[0].attr('id'),
       cardId2 = gameState.openedCards[1].attr('id'),
-      card1 = findCardById(cardId1),
-      card2 = findCardById(cardId2);
+      card1 = findCardById(parseInt(cardId1, 10)),
+      card2 = findCardById(parseInt(cardId2, 10));
 
-  // Check if the cards match
+  // Check if the cards match.
   return (card1.symbol === card2.symbol);
 
 }
