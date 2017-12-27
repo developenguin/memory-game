@@ -199,6 +199,8 @@ function resetGameState() {
   gameState.moves = 0;
   gameState.stars = 3;
 
+  $('.moves').text(gameState.moves);
+
 }
 
 // Add two cards of each symbol to the list of cards
@@ -245,7 +247,7 @@ function shuffleCards(array) {
   }
 
   return array;
-  
+
 }
 
 /*
