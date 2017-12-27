@@ -11,6 +11,7 @@ var gameState = {
 function initializeNewGame() {
 
   resetGameState();
+  hideVictoryModal();
 
   displayCardsOnScreen(gameState.cards);
   updateStarRatingForGame();
@@ -148,10 +149,14 @@ function determineStarRatingForGame() {
 
 }
 
-function generateStar() {
+function generateStar(options) {
 
   var $li = $('<li></li>'),
       $starIcon = $('<i></i>').addClass('fa fa-star');
+
+  if (options && options.isLargeIcon) {
+    $starIcon.addClass('fa-3x');
+  }
 
   $li.append($starIcon);
 
@@ -232,8 +237,24 @@ function findCardById(id) {
 
 }
 
+// Show the final moves, stars etc.
 function showVictoryModal() {
 
+  var i,
+      $stars = $('.star-rating');
+
+  $('.final-moves').text(gameState.moves);
+
+  for (i = 0; i < gameState.stars; i++) {
+    $stars.append(generateStar({isLargeIcon: true}));
+  }
+
+  $('#win-modal').removeClass('hidden');
+
+}
+
+function hideVictoryModal() {
+  $('#win-modal').addClass('hidden');
 }
 
 function resetGameState() {

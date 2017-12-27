@@ -111,6 +111,10 @@ h1 {
  * Styles for the modal
  */
 
+.hidden {
+  display: none;
+}
+
 .modal {
   position: fixed;
   z-index: 1;
