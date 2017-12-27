@@ -61,6 +61,10 @@ function onClickCard(evt) {
 
   var $clickedCard = $(evt.target);
 
+  if ($clickedCard.hasClass('.open')) {
+    return;
+  }
+
   openCard($clickedCard);
   gameState.openedCards.push($clickedCard);
 
