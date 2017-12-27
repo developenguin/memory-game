@@ -13,6 +13,7 @@ function initializeNewGame() {
   resetGameState();
 
   displayCardsOnScreen(gameState.cards);
+  updateStarRatingForGame();
   registerEventListeners();
 
 }
@@ -100,14 +101,60 @@ function handleMove() {
 
   }
 
+  updateStarRatingForGame();
+
 }
 
 function increaseMoveCounter() {
 
-  var $moves = $('.moves'),
-      movesCount = parseInt($moves.text(), 10);
+  var $moves = $('.moves');
 
-  $moves.text(movesCount + 1);
+  gameState.moves++;
+
+  $moves.text(gameState.moves);
+
+}
+
+function updateStarRatingForGame() {
+
+  var $stars = $('.stars'),
+      i;
+
+  determineStarRatingForGame();
+  $stars.empty();
+
+  for (i = 0; i < gameState.stars; i++) {
+
+    $stars.append(generateStar());
+
+  }
+
+}
+
+function determineStarRatingForGame() {
+
+  var rating = 3;
+
+  if (gameState.moves >= 16) {
+    rating = 2;
+  }
+
+  if (gameState.moves >= 20) {
+    rating = 1;
+  }
+
+  gameState.stars = rating;
+
+}
+
+function generateStar() {
+
+  var $li = $('<li></li>'),
+      $starIcon = $('<i></i>').addClass('fa fa-star');
+
+  $li.append($starIcon);
+
+  return $li;
 
 }
 
