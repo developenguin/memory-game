@@ -121,7 +121,16 @@ function handleMove() {
 
   if (isOpenCardsMatch()) {
 
+    // Set the styling
+    setMatchedForOpenedCards();
+
+  } else {
+    closeCard(gameState.openedCards[0]);
+    closeCard(gameState.openedCards[1]);
   }
+
+  // Always reset the opened cards
+  gameState.openedCards = [];
 
 }
 
@@ -139,6 +148,14 @@ function isOpenCardsMatch() {
 
   // Check if the cards match.
   return (card1.symbol === card2.symbol);
+
+}
+
+function setMatchedForOpenedCards() {
+
+  for (var i = 0; i < gameState.openedCards.length; i++) {
+    $('.card#' + gameState.openedCards[i].id).addClass('match');
+  }
 
 }
 
