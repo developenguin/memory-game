@@ -3,64 +3,18 @@
 
 var gameState = {
   cards: [],
-  openedCards: []
+  openedCards: [],
+  moves: 0,
+  stars: 3
 };
 
 function initializeNewGame() {
 
-  // Make, shuffle and display the list of cards
-  gameState.cards = populateCardList();
+  resetGameState();
 
-  shuffle(gameState.cards);
   displayCardsOnScreen(gameState.cards);
   registerEventListeners();
 
-}
-
-// Add two cards of each symbol to the list of cards
-function populateCardList() {
-
-  var symbols = [
-        'diamond',
-        'paper-plane-o',
-        'anchor',
-        'bolt',
-        'cube',
-        'leaf',
-        'bicycle',
-        'bomb'
-      ],
-      result = [],
-      i;
-
-  // Make sure we get two of each symbol, mod operator is used to make sure
-  // that we only get existing symbols.
-  for (i = 0; i < symbols.length * 2; i++) {
-    result.push({
-      id: i,
-      symbol: symbols[i % symbols.length],
-      isMatched: false
-    });
-  }
-
-  return result;
-}
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-  var currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
-
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
 }
 
 // For each card in the deck, append it to the deck
@@ -228,6 +182,66 @@ function findCardById(id) {
 
 function showVictoryModal() {
 
+}
+
+function resetGameState() {
+
+  // Make the list of cards and shuffle it
+  gameState.cards = populateCardList();
+  shuffleCards(gameState.cards);
+
+  // Reset opened cards, moves and stars
+  gameState.openedCards = [];
+  gameState.moves = 0;
+  gameState.stars = 3;
+
+}
+
+// Add two cards of each symbol to the list of cards
+function populateCardList() {
+
+  var symbols = [
+        'diamond',
+        'paper-plane-o',
+        'anchor',
+        'bolt',
+        'cube',
+        'leaf',
+        'bicycle',
+        'bomb'
+      ],
+      result = [],
+      i;
+
+  // Make sure we get two of each symbol, mod operator is used to make sure
+  // that we only get existing symbols.
+  for (i = 0; i < symbols.length * 2; i++) {
+    result.push({
+      id: i,
+      symbol: symbols[i % symbols.length],
+      isMatched: false
+    });
+  }
+
+  return result;
+}
+
+// Shuffle function from http://stackoverflow.com/a/2450976
+function shuffleCards(array) {
+  var currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+  
 }
 
 /*
