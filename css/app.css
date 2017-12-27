@@ -106,3 +106,30 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+/*
+ * Styles for the modal
+ */
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #f2f2f2;
+  margin: 15% auto;
+  width: 50%;
+  padding: 30px;
+  text-align: center;
+}
+
+.modal-content .restart {
+  cursor: pointer;
+}
