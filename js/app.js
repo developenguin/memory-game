@@ -123,14 +123,18 @@ function handleMove() {
 
     // Set the styling
     setMatchedForOpenedCards();
+    gameState.openedCards = [];
 
   } else {
-    closeCard(gameState.openedCards[0]);
-    closeCard(gameState.openedCards[1]);
-  }
 
-  // Always reset the opened cards
-  gameState.openedCards = [];
+    setTimeout(function() {
+      closeCard(gameState.openedCards[0]);
+      closeCard(gameState.openedCards[1]);
+
+      gameState.openedCards = [];
+    }, 500);
+
+  }
 
 }
 
