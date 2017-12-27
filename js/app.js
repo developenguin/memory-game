@@ -38,8 +38,7 @@ function populateCardList() {
   for (i = 0; i < symbols.length * 2; i++) {
     result.push({
       id: i,
-      symbol: symbols[i % symbols.length],
-      isOpen: false
+      symbol: symbols[i % symbols.length]
     });
   }
 
