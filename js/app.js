@@ -146,6 +146,11 @@ function handleMove() {
 
 function increaseMoveCounter() {
 
+  var $moves = $('.moves'),
+      movesCount = parseInt($moves.text(), 10);
+
+  $moves.text(movesCount + 1);
+
 }
 
 function isOpenCardsMatch() {
@@ -222,7 +227,7 @@ function findCardById(id) {
 }
 
 function showVictoryModal() {
-  
+
 }
 
 /*
