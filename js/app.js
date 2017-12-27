@@ -158,7 +158,7 @@ function isOpenCardsMatch() {
 function setMatchedForOpenedCards() {
 
   for (var i = 0; i < gameState.openedCards.length; i++) {
-    $('.card#' + gameState.openedCards[i].id).addClass('match');
+    $('.card#' + gameState.openedCards[i].attr('id')).addClass('match');
   }
 
 }
