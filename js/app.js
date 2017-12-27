@@ -100,6 +100,7 @@ function onClickRestart() {
 
   $('.deck').empty();
   initializeNewGame();
+
 }
 
 function onClickCard(evt) {
@@ -131,8 +132,14 @@ function increaseMoveCounter() {
 
 function isOpenCardsMatch() {
 
-  var cardClass1 = gameState.openedCards[0],
-      cardClass2 = gameState.openedCards[1];
+  // Get the IDs of the opened cards and find their counterparts in the state
+  var cardId1 = gameState.openedCards[0].attr('id'),
+      cardId2 = gameState.openedCards[1].attr('id'),
+      card1 = findCardById(cardId1),
+      card2 = findCardById(cardId2);
+
+  // Check if the cards match
+  return (card1.symbol === card2.symbol);
 
 }
 
@@ -142,6 +149,26 @@ function openCard(card) {
 
 function closeCard(card) {
   card.removeClass('show open');
+}
+
+function findCardById(id) {
+
+  var card, i;
+
+  // Iterate over the cards array to get the on with the ID passed in.
+  for (i = 0; i < gameState.cards.length; i++) {
+
+    card = gameState.cards[i];
+
+    if (card.id === id) {
+      return card;
+    }
+
+  }
+
+  // Make sure this never returns null
+  return {};
+
 }
 
 /*
