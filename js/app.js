@@ -93,6 +93,13 @@ function generateCard(card) {
 function registerEventListeners() {
 
   $('.deck').on('click', '.card', onClickCard);
+  $('.restart').on('click', onClickRestart);
+}
+
+function onClickRestart() {
+
+  $('.deck').empty();
+  initializeNewGame();
 }
 
 function onClickCard(evt) {
