@@ -38,7 +38,8 @@ function populateCardList() {
   for (i = 0; i < symbols.length * 2; i++) {
     result.push({
       id: i,
-      symbol: symbols[i % symbols.length]
+      symbol: symbols[i % symbols.length],
+      isMatched: false
     });
   }
 
@@ -125,6 +126,11 @@ function handleMove() {
     setMatchedForOpenedCards();
     gameState.openedCards = [];
 
+    // Check if the game is won
+    if (isAllCardsMatched()) {
+      showVictoryModal();
+    }
+
   } else {
 
     setTimeout(function() {
@@ -155,10 +161,34 @@ function isOpenCardsMatch() {
 
 }
 
+function isAllCardsMatched() {
+
+  // Loop over all cards and if any card is not matched return false.
+  // Else all cards are matched, so return true
+  for (var i = 0; i < gameState.cards.length; i++) {
+
+    if (!gameState.cards[i].isMatched) {
+      return false;
+    }
+
+  }
+
+  return true;
+
+}
+
 function setMatchedForOpenedCards() {
 
-  for (var i = 0; i < gameState.openedCards.length; i++) {
-    $('.card#' + gameState.openedCards[i].attr('id')).addClass('match');
+  var cardId, i;
+
+  // Update the DOM by setting the match class and update the state for tracking
+  for (i = 0; i < gameState.openedCards.length; i++) {
+
+    cardId = gameState.openedCards[i].attr('id');
+
+    $('.card#' + cardId).addClass('match');
+    findCardById(parseInt(cardId, 10)).isMatched = true;
+
   }
 
 }
@@ -189,6 +219,10 @@ function findCardById(id) {
   // Make sure this never returns null
   return {};
 
+}
+
+function showVictoryModal() {
+  
 }
 
 /*
