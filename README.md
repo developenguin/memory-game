@@ -14,4 +14,5 @@ Based on your performance you can get a star rating ranging from one to three.
 This project has the following dependencies
 
 - Font Awesome (icons)
-- jQuery
+- jQuery 3.2
+- Lodash 4.17
