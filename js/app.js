@@ -256,7 +256,7 @@ function formatTime(time) {
         mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)),
         secs = Math.floor((time % (1000 * 60)) / 1000);
 
-  return `${hours}:${mins}:${secs}`;
+  return `${ _.padStart(hours, 2, '0') }:${ _.padStart(mins, 2, '0') }:${ _.padStart(secs, 2, '0') }`; //eslint-disable-line
 
 }
 
