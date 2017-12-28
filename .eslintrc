@@ -7,7 +7,12 @@
   */
 
   "env": {
-    "browser": true
+    "browser": true,
+    "jquery": true
+  },
+
+  "parserOptions": {
+    "ecmaVersion": 6
   },
 
   "globals": {
@@ -32,7 +37,7 @@
     "eqeqeq": 2,
     "func-names": 0,
     "func-style": 0,
-    "indent": [2, 2, { "VariableDeclarator": 2, "SwitchCase": 1 }],
+    "indent": [2, 2, { "VariableDeclarator": { "var": 2, "let": 2, "const": 3 }, "SwitchCase": 1 }],
     "key-spacing": [2, {afterColon: true, beforeColon: false}],
     "keyword-spacing": 2,
     "max-len": [1, 80, 4],
@@ -108,6 +113,7 @@
     "no-with": 2,
     "object-curly-spacing": [2, "never"],
     "one-var": 2,
+    "prefer-const": ["error"],
     "quote-props": [1, "as-needed", { "keywords": true, "unnecessary": false }],
     "quotes": [2, "single", "avoid-escape"],
     "radix": 2,

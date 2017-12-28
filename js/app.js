@@ -1,5 +1,4 @@
 /* global $ */
-// ES5 is used for now to maintain compatibility across browsers
 
 var gameState = {
   cards: [],
