@@ -96,6 +96,11 @@ li {
     margin-bottom: 10px;
 }
 
+.score-panel .duration {
+  width: 160px;
+  display: inline-block;
+}
+
 .score-panel .stars {
     padding: 0;
     display: inline-block;
