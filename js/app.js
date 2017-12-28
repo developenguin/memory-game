@@ -1,6 +1,6 @@
 /* global $ */
 
-var gameState = {
+const gameState = {
   cards: [],
   openedCards: [],
   moves: 0,
@@ -21,10 +21,9 @@ function initializeNewGame() {
 // For each card in the deck, append it to the deck
 function displayCardsOnScreen(cards) {
 
-  var $deck = $('.deck'),
-      i;
+  const $deck = $('.deck');
 
-  for (i = 0; i < cards.length; i++) {
+  for (let i = 0; i < cards.length; i++) {
     $deck.append(generateCard(cards[i]));
   }
 
@@ -33,11 +32,11 @@ function displayCardsOnScreen(cards) {
 // Generates the HTML for a card
 function generateCard(card) {
 
-  var $card = $('<li></li>').attr({
-        'class': 'card',
-        'id': card.id
-      }),
-      $icon = $('<i></i>').addClass('fa fa-' + card.symbol);
+  const $card = $('<li></li>').attr({
+          'class': 'card',
+          'id': card.id
+        }),
+        $icon = $('<i></i>').addClass('fa fa-' + card.symbol);
 
   $card.append($icon);
 
@@ -61,7 +60,7 @@ function onClickRestart() {
 
 function onClickCard(evt) {
 
-  var $clickedCard = $(evt.target);
+  const $clickedCard = $(evt.target);
 
   if ($clickedCard.hasClass('.open')) {
     return;
@@ -108,7 +107,7 @@ function handleMove() {
 
 function increaseMoveCounter() {
 
-  var $moves = $('.moves');
+  const $moves = $('.moves');
 
   gameState.moves++;
 
@@ -118,13 +117,12 @@ function increaseMoveCounter() {
 
 function updateStarRatingForGame() {
 
-  var $stars = $('.stars'),
-      i;
+  const $stars = $('.stars');
 
   determineStarRatingForGame();
   $stars.empty();
 
-  for (i = 0; i < gameState.stars; i++) {
+  for (let i = 0; i < gameState.stars; i++) {
 
     $stars.append(generateStar());
 
@@ -134,7 +132,7 @@ function updateStarRatingForGame() {
 
 function determineStarRatingForGame() {
 
-  var rating = 3;
+  let rating = 3;
 
   if (gameState.moves >= 16) {
     rating = 2;
@@ -150,8 +148,8 @@ function determineStarRatingForGame() {
 
 function generateStar(options) {
 
-  var $li = $('<li></li>'),
-      $starIcon = $('<i></i>').addClass('fa fa-star');
+  const $li = $('<li></li>'),
+        $starIcon = $('<i></i>').addClass('fa fa-star');
 
   if (options && options.isLargeIcon) {
     $starIcon.addClass('fa-3x');
@@ -166,10 +164,10 @@ function generateStar(options) {
 function isOpenCardsMatch() {
 
   // Get the IDs of the opened cards and find their counterparts in the state
-  var cardId1 = gameState.openedCards[0].attr('id'),
-      cardId2 = gameState.openedCards[1].attr('id'),
-      card1 = findCardById(parseInt(cardId1, 10)),
-      card2 = findCardById(parseInt(cardId2, 10));
+  const cardId1 = gameState.openedCards[0].attr('id'),
+        cardId2 = gameState.openedCards[1].attr('id'),
+        card1 = findCardById(parseInt(cardId1, 10)),
+        card2 = findCardById(parseInt(cardId2, 10));
 
   // Check if the cards match.
   return (card1.symbol === card2.symbol);
@@ -180,7 +178,7 @@ function isAllCardsMatched() {
 
   // Loop over all cards and if any card is not matched return false.
   // Else all cards are matched, so return true
-  for (var i = 0; i < gameState.cards.length; i++) {
+  for (let i = 0; i < gameState.cards.length; i++) {
 
     if (!gameState.cards[i].isMatched) {
       return false;
@@ -194,7 +192,7 @@ function isAllCardsMatched() {
 
 function setMatchedForOpenedCards() {
 
-  var cardId, i;
+  let cardId, i;
 
   // Update the DOM by setting the match class and update the state for tracking
   for (i = 0; i < gameState.openedCards.length; i++) {
@@ -218,7 +216,7 @@ function closeCard(card) {
 
 function findCardById(id) {
 
-  var card, i;
+  let card, i;
 
   // Iterate over the cards array to get the on with the ID passed in.
   for (i = 0; i < gameState.cards.length; i++) {
@@ -239,12 +237,11 @@ function findCardById(id) {
 // Show the final moves, stars etc.
 function showVictoryModal() {
 
-  var i,
-      $stars = $('.star-rating');
+  const $stars = $('.star-rating');
 
   $('.final-moves').text(gameState.moves);
 
-  for (i = 0; i < gameState.stars; i++) {
+  for (let i = 0; i < gameState.stars; i++) {
     $stars.append(generateStar({isLargeIcon: true}));
   }
 
@@ -274,7 +271,7 @@ function resetGameState() {
 // Add two cards of each symbol to the list of cards
 function populateCardList() {
 
-  var symbols = [
+  const symbols = [
         'diamond',
         'paper-plane-o',
         'anchor',
@@ -284,12 +281,11 @@ function populateCardList() {
         'bicycle',
         'bomb'
       ],
-      result = [],
-      i;
+      result = [];
 
   // Make sure we get two of each symbol, mod operator is used to make sure
   // that we only get existing symbols.
-  for (i = 0; i < symbols.length * 2; i++) {
+  for (let i = 0; i < symbols.length * 2; i++) {
     result.push({
       id: i,
       symbol: symbols[i % symbols.length],
@@ -302,7 +298,7 @@ function populateCardList() {
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffleCards(array) {
-  var currentIndex = array.length,
+  let currentIndex = array.length,
       temporaryValue,
       randomIndex;
 
