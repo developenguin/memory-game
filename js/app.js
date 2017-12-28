@@ -1,5 +1,3 @@
-/* global $ */
-
 const gameState = {
   cards: [],
   openedCards: [],
@@ -7,14 +5,17 @@ const gameState = {
   stars: 3
 };
 
-function initializeNewGame() {
+function initializeNewGame(options) {
 
   resetGameState();
   hideVictoryModal();
 
   displayCardsOnScreen(gameState.cards);
   updateStarRatingForGame();
-  registerEventListeners();
+
+  if (options && options.isFirstGame) {
+    registerEventListeners();
+  }
 
 }
 
@@ -52,10 +53,7 @@ function registerEventListeners() {
 }
 
 function onClickRestart() {
-
-  $('.deck').empty();
   initializeNewGame();
-
 }
 
 function onClickCard(evt) {
@@ -255,6 +253,8 @@ function hideVictoryModal() {
 
 function resetGameState() {
 
+  $('.deck').empty();
+
   // Make the list of cards and shuffle it
   gameState.cards = populateCardList();
   shuffleCards(gameState.cards);
@@ -314,4 +314,4 @@ function shuffleCards(array) {
 
 }
 
-initializeNewGame();
+initializeNewGame({isFirstGame: true});
