@@ -92,14 +92,18 @@ li {
 
 .score-panel {
     text-align: left;
-    width: 345px;
+    width: 400px;
     margin-bottom: 10px;
 }
 
 .score-panel .stars {
     padding: 0;
     display: inline-block;
-    margin: 0 5px 0 0;
+    margin: 0 0 0 10px;
+}
+
+.score-panel .moves {
+  margin-left: 30px;
 }
 
 .score-panel .restart {

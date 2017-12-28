@@ -3,7 +3,10 @@ const gameState = {
   openedCards: [],
   moves: 0,
   stars: 3,
-  isHandlingMove: false
+  isHandlingMove: false,
+  gameStartTime: null,
+  timePlayed: null,
+  timer: null
 };
 
 function initializeNewGame(options) {
@@ -69,7 +72,9 @@ function onClickCard(evt) {
     return;
   }
 
-  // Else, open the card and if there are two open cards, process it as 'a move'
+  startGameTimerIfNotExisting();
+
+  // Open the card and if there are two open cards, process it as 'a move'
   openCard($clickedCard);
   gameState.openedCards.push($clickedCard);
 
@@ -217,6 +222,49 @@ function isAllCardsMatched() {
 
   return true;
 
+}
+
+function startGameTimerIfNotExisting() {
+
+  if (!gameState.gameStartTime) {
+
+    gameState.gameStartTime = new Date().getTime();
+    gameState.timer = setInterval(updateTime, 1000);
+
+  }
+
+}
+
+function updateTime() {
+
+  const now = new Date().getTime();
+
+  gameState.timePlayed = now - gameState.gameStartTime;
+
+  displayTimeInGameHeader(
+    formatTime(gameState.timePlayed)
+  );
+
+}
+
+/*
+ * Takes a time and formats it to a HH:mm:ss string
+ */
+function formatTime(time) {
+
+  const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)),
+        secs = Math.floor((time % (1000 * 60)) / 1000);
+
+  return `${hours}:${mins}:${secs}`;
+
+}
+
+/*
+ * takes the output of formatTime and displays it on the screen
+ */
+function displayTimeInGameHeader(formattedTimeString) {
+  $('.time-played').text(formattedTimeString);
 }
 
 function setMatchedForOpenedCards() {
