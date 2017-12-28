@@ -61,9 +61,11 @@ function onClickCard(evt) {
 
   const $clickedCard = $(evt.target);
 
-  // When clicking on an open card, or if we are still handling
+  // When clicking on any already open card, or if we are still handling
   // the previous click, don't do anything.
-  if ($clickedCard.hasClass('.open') || gameState.isHandlingMove || isClickedCardAlreadyOpen($clickedCard)) {
+  if (isClickingOnOpenCard($clickedCard)
+    || isClickingOnSameCard($clickedCard)
+    || gameState.isHandlingMove) {
     return;
   }
 
@@ -170,7 +172,11 @@ function generateStar(options) {
 
 }
 
-function isClickedCardAlreadyOpen($clickedCard) {
+function isClickingOnOpenCard($clickedCard) {
+  return $clickedCard.hasClass('open');
+}
+
+function isClickingOnSameCard($clickedCard) {
 
   // If this is the first card of a move, there is no match
   if (gameState.openedCards.length === 0) {
