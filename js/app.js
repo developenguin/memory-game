@@ -254,6 +254,7 @@ function hideVictoryModal() {
 function resetGameState() {
 
   $('.deck').empty();
+  $('.star-rating').empty();
 
   // Make the list of cards and shuffle it
   gameState.cards = populateCardList();
