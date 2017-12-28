@@ -2,7 +2,8 @@ const gameState = {
   cards: [],
   openedCards: [],
   moves: 0,
-  stars: 3
+  stars: 3,
+  isHandlingMove: false
 };
 
 function initializeNewGame(options) {
@@ -60,10 +61,13 @@ function onClickCard(evt) {
 
   const $clickedCard = $(evt.target);
 
-  if ($clickedCard.hasClass('.open')) {
+  // When clicking on an open card, or if we are still handling the previous click,
+  // don't do anything.
+  if ($clickedCard.hasClass('.open') || gameState.isHandlingMove) {
     return;
   }
 
+  // Else, open the card and if there are two open cards, process it as 'a move'
   openCard($clickedCard);
   gameState.openedCards.push($clickedCard);
 
@@ -88,13 +92,17 @@ function handleMove() {
       showVictoryModal();
     }
 
+    gameState.isHandlingMove = false;
+
   } else {
 
+    // Show the cards for a little while before closing them
     setTimeout(function() {
       closeCard(gameState.openedCards[0]);
       closeCard(gameState.openedCards[1]);
 
       gameState.openedCards = [];
+      gameState.isHandlingMove = false;
     }, 500);
 
   }
