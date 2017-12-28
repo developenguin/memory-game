@@ -61,9 +61,9 @@ function onClickCard(evt) {
 
   const $clickedCard = $(evt.target);
 
-  // When clicking on an open card, or if we are still handling the previous click,
-  // don't do anything.
-  if ($clickedCard.hasClass('.open') || gameState.isHandlingMove) {
+  // When clicking on an open card, or if we are still handling
+  // the previous click, don't do anything.
+  if ($clickedCard.hasClass('.open') || gameState.isHandlingMove || isClickedCardAlreadyOpen($clickedCard)) {
     return;
   }
 
@@ -79,11 +79,14 @@ function onClickCard(evt) {
 
 function handleMove() {
 
+  // Prevent a click on any card from doing anything while we are busy here
+  gameState.isHandlingMove = true;
+
   increaseMoveCounter();
 
   if (isOpenCardsMatch()) {
 
-    // Set the styling
+    // Set the styling and reset the openedCards list to prepare for next turn
     setMatchedForOpenedCards();
     gameState.openedCards = [];
 
@@ -167,6 +170,20 @@ function generateStar(options) {
 
 }
 
+function isClickedCardAlreadyOpen($clickedCard) {
+
+  // If this is the first card of a move, there is no match
+  if (gameState.openedCards.length === 0) {
+    return false;
+  }
+
+  const clickedCardId = $clickedCard.attr('id'),
+        openCardId = gameState.openedCards[0].attr('id');
+
+  return clickedCardId === openCardId;
+
+}
+
 function isOpenCardsMatch() {
 
   // Get the IDs of the opened cards and find their counterparts in the state
@@ -175,7 +192,7 @@ function isOpenCardsMatch() {
         card1 = findCardById(parseInt(cardId1, 10)),
         card2 = findCardById(parseInt(cardId2, 10));
 
-  // Check if the cards match.
+  // Check if the card symbols match.
   return (card1.symbol === card2.symbol);
 
 }
