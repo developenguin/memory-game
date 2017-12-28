@@ -272,16 +272,16 @@ function resetGameState() {
 function populateCardList() {
 
   const symbols = [
-        'diamond',
-        'paper-plane-o',
-        'anchor',
-        'bolt',
-        'cube',
-        'leaf',
-        'bicycle',
-        'bomb'
-      ],
-      result = [];
+          'diamond',
+          'paper-plane-o',
+          'anchor',
+          'bolt',
+          'cube',
+          'leaf',
+          'bicycle',
+          'bomb'
+        ],
+        result = [];
 
   // Make sure we get two of each symbol, mod operator is used to make sure
   // that we only get existing symbols.
