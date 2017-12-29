@@ -97,8 +97,9 @@ function handleMove() {
     setMatchedForOpenedCards();
     gameState.openedCards = [];
 
-    // Check if the game is won
+    // If the game is won, stop the time and show the win message
     if (isAllCardsMatched()) {
+      stopTimer();
       showVictoryModal();
     }
 
@@ -267,6 +268,13 @@ function displayTimeInGameHeader(formattedTimeString) {
   $('.time-played').text(formattedTimeString);
 }
 
+/*
+ * Stops the timer
+ */
+function stopTimer() {
+  clearInterval(gameState.timer);
+}
+
 function setMatchedForOpenedCards() {
 
   let cardId, i;
@@ -317,6 +325,7 @@ function showVictoryModal() {
   const $stars = $('.star-rating');
 
   $('.final-moves').text(gameState.moves);
+  $('.total-time').text(formatTime(gameState.timePlayed));
 
   for (let i = 0; i < gameState.stars; i++) {
     $stars.append(generateStar({isLargeIcon: true}));
