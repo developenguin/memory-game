@@ -9,6 +9,10 @@ const gameState = {
   timer: null
 };
 
+/*
+ * Set up everything needed for a new game to start. If it's the first game
+ * of the session, register event handlers to respond to clicks
+ */
 function initializeNewGame(options) {
 
   resetGameState();
@@ -24,7 +28,9 @@ function initializeNewGame(options) {
 
 }
 
-// For each card in the deck, append it to the deck
+/*
+ * Appends a list of card elements to the DOM
+ */
 function displayCardsOnScreen(cards) {
 
   const $deck = $('.deck');
@@ -35,7 +41,9 @@ function displayCardsOnScreen(cards) {
 
 }
 
-// Generates the HTML for a card
+/*
+ * Generates the necessary HTML for displaying a card on the screen
+ */
 function generateCard(card) {
 
   const $card = $('<li></li>').attr({
@@ -50,6 +58,9 @@ function generateCard(card) {
 
 }
 
+/*
+ * Register event handlers for interactivity
+ */
 function registerEventListeners() {
 
   $('.deck').on('click', '.card', onClickCard);
@@ -57,11 +68,18 @@ function registerEventListeners() {
 
 }
 
+/*
+ * Event handler for the restart button. Stops the timer and starts a new game
+ */
 function onClickRestart() {
   stopTimer();
   initializeNewGame();
 }
 
+/*
+ * Event handler for a card click. This calls the necessary functions to
+ * process a move
+ */
 function onClickCard(evt) {
 
   const $clickedCard = $(evt.target);
@@ -86,6 +104,13 @@ function onClickCard(evt) {
 
 }
 
+/*
+ * Do everything needed to process a move (i.e. two consecutive clicks on
+ * different cards).
+ * - Block the game from processing user inputs
+ * - Match cards
+ * - Check if the game is won or not
+ */
 function handleMove() {
 
   // Prevent a click on any card from doing anything while we are busy here
@@ -125,6 +150,9 @@ function handleMove() {
 
 }
 
+/*
+ * Increase the move counter on screen
+ */
 function increaseMoveCounter() {
 
   const $moves = $('.moves');
@@ -135,6 +163,9 @@ function increaseMoveCounter() {
 
 }
 
+/*
+ * Update the star rating on screen
+ */
 function updateStarRatingForGame() {
 
   const $stars = $('.stars');
@@ -150,6 +181,9 @@ function updateStarRatingForGame() {
 
 }
 
+/*
+ * Determine how many stars the game is worth, based on the amount of moves
+ */
 function determineStarRatingForGame() {
 
   let rating = 3;
@@ -166,6 +200,9 @@ function determineStarRatingForGame() {
 
 }
 
+/*
+ * Generate the HTML for a star icon
+ */
 function generateStar(options) {
 
   const $li = $('<li></li>'),
@@ -181,13 +218,19 @@ function generateStar(options) {
 
 }
 
+/*
+ * Check if the clicked card is open
+ */
 function isClickingOnOpenCard($clickedCard) {
   return $clickedCard.hasClass('open');
 }
 
+/*
+ * Check if the clicked card was already clicked within the same turn
+ */
 function isClickingOnSameCard($clickedCard) {
 
-  // If this is the first card of a move, there is no match
+  // If this is the first card of a move, there is no 'same card' to click
   if (gameState.openedCards.length === 0) {
     return false;
   }
@@ -199,6 +242,9 @@ function isClickingOnSameCard($clickedCard) {
 
 }
 
+/*
+ * Check if the currently opened cards are matched by comparing their symbols
+ */
 function isOpenCardsMatch() {
 
   // Get the IDs of the opened cards and find their counterparts in the state
@@ -206,16 +252,17 @@ function isOpenCardsMatch() {
         cardId2 = gameState.openedCards[1].attr('id'),
         card1 = findCardById(parseInt(cardId1, 10)),
         card2 = findCardById(parseInt(cardId2, 10));
-
-  // Check if the card symbols match.
+  
   return (card1.symbol === card2.symbol);
 
 }
 
+/*
+ * Check if all cards on the board are matched to another card
+ */
 function isAllCardsMatched() {
 
-  // Loop over all cards and if any card is not matched return false.
-  // Else all cards are matched, so return true
+  // If any card is not matched, break out of the loop
   for (let i = 0; i < gameState.cards.length; i++) {
 
     if (!gameState.cards[i].isMatched) {
@@ -228,6 +275,10 @@ function isAllCardsMatched() {
 
 }
 
+/*
+ * If there is no timer in the game state, start one by recording the current
+ * time and setting the update interval
+ */
 function startGameTimerIfNotExisting() {
 
   if (!gameState.gameStartTime) {
@@ -239,6 +290,10 @@ function startGameTimerIfNotExisting() {
 
 }
 
+/*
+ * This is a timer function which takes the current time and calculates
+ * how long the game is taking compared to the start time
+ */
 function updateTime() {
 
   const now = new Date().getTime();
@@ -265,7 +320,7 @@ function formatTime(time) {
 }
 
 /*
- * takes the output of formatTime and displays it on the screen
+ * takes the a formatted time string and displays it on the screen
  */
 function displayTimeInGameHeader(formattedTimeString) {
   $('.time-played').text(formattedTimeString);
@@ -278,11 +333,13 @@ function stopTimer() {
   clearInterval(gameState.timer);
 }
 
+/*
+ * For all opened cards, set them to matched in the DOM and game state
+ */
 function setMatchedForOpenedCards() {
 
   let cardId, i;
 
-  // Update the DOM by setting the match class and update the state for tracking
   for (i = 0; i < gameState.openedCards.length; i++) {
 
     cardId = gameState.openedCards[i].attr('id');
@@ -294,19 +351,27 @@ function setMatchedForOpenedCards() {
 
 }
 
+/*
+ * Open a card
+ */
 function openCard(card) {
   card.addClass('show open');
 }
 
+/*
+ * Close a card
+ */
 function closeCard(card) {
   card.removeClass('show open');
 }
 
+/*
+ * returns the card with the given ID from the game state
+ */
 function findCardById(id) {
 
   let card, i;
 
-  // Iterate over the cards array to get the on with the ID passed in.
   for (i = 0; i < gameState.cards.length; i++) {
 
     card = gameState.cards[i];
@@ -345,6 +410,9 @@ function showVictoryModal() {
   $('#win-modal').removeClass('hidden');
 }
 
+/*
+ * hide the victory modal
+ */
 function hideVictoryModal() {
   $('#win-modal').addClass('hidden');
 }
@@ -373,7 +441,9 @@ function resetGameState() {
 
 }
 
-// Add two cards of each symbol to the list of cards
+/*
+ * Returns a list of cards containing two cards of each symbol
+ */
 function populateCardList() {
 
   const symbols = [
@@ -388,8 +458,7 @@ function populateCardList() {
         ],
         result = [];
 
-  // Make sure we get two of each symbol, mod operator is used to make sure
-  // that we only get existing symbols.
+  // mod operator is used to make sure we only get existing symbols.
   for (let i = 0; i < symbols.length * 2; i++) {
     result.push({
       id: i,
@@ -419,4 +488,5 @@ function shuffleCards(array) {
 
 }
 
+// Start the first game of the session
 initializeNewGame({isFirstGame: true});
