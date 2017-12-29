@@ -16,6 +16,7 @@ function initializeNewGame(options) {
 
   displayCardsOnScreen(gameState.cards);
   updateStarRatingForGame();
+  displayTimeInGameHeader('00:00:00');
 
   if (options && options.isFirstGame) {
     registerEventListeners();
@@ -57,6 +58,7 @@ function registerEventListeners() {
 }
 
 function onClickRestart() {
+  stopTimer();
   initializeNewGame();
 }
 
