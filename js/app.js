@@ -252,7 +252,7 @@ function isOpenCardsMatch() {
         cardId2 = gameState.openedCards[1].attr('id'),
         card1 = findCardById(parseInt(cardId1, 10)),
         card2 = findCardById(parseInt(cardId2, 10));
-  
+
   return (card1.symbol === card2.symbol);
 
 }
@@ -369,22 +369,7 @@ function closeCard(card) {
  * returns the card with the given ID from the game state
  */
 function findCardById(id) {
-
-  let card, i;
-
-  for (i = 0; i < gameState.cards.length; i++) {
-
-    card = gameState.cards[i];
-
-    if (card.id === id) {
-      return card;
-    }
-
-  }
-
-  // Make sure this never returns null
-  return {};
-
+  return _.find(gameState.cards, {id}) || {};
 }
 
 /*
