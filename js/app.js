@@ -347,6 +347,9 @@ function hideVictoryModal() {
   $('#win-modal').addClass('hidden');
 }
 
+/*
+ * Prepare the game state for the next game
+ */
 function resetGameState() {
 
   $('.deck').empty();
@@ -360,6 +363,9 @@ function resetGameState() {
   gameState.openedCards = [];
   gameState.moves = 0;
   gameState.stars = 3;
+  gameState.timer = null;
+  gameState.gameStartTime = null;
+  gameState.timePlayed = null;
 
   $('.moves').text(gameState.moves);
 
