@@ -100,6 +100,7 @@ function handleMove() {
     // If the game is won, stop the time and show the win message
     if (isAllCardsMatched()) {
       stopTimer();
+      updateVictoryModal();
       showVictoryModal();
     }
 
@@ -319,8 +320,10 @@ function findCardById(id) {
 
 }
 
-// Show the final moves, stars etc.
-function showVictoryModal() {
+/*
+ * Prepare the victory modal for showing by inserting all the latest info
+ */
+function updateVictoryModal() {
 
   const $stars = $('.star-rating');
 
@@ -331,8 +334,13 @@ function showVictoryModal() {
     $stars.append(generateStar({isLargeIcon: true}));
   }
 
-  $('#win-modal').removeClass('hidden');
+}
 
+/*
+ * Show a modal with the final time, stars etc.
+ */
+function showVictoryModal() {
+  $('#win-modal').removeClass('hidden');
 }
 
 function hideVictoryModal() {
